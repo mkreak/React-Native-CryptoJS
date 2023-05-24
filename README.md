@@ -4,7 +4,9 @@ To  implement react native crypto js with java server to secure api key
 **java:
 **
 
-<!-- Controller: -->
+Controller:
+
+`
  @GetMapping("/api/getPrivateKey")
     @ResponseBody
     public ResponseEntity<?> getPrivateKey(){
@@ -22,9 +24,10 @@ To  implement react native crypto js with java server to secure api key
             result.put("err", e.getLocalizedMessage());
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
-    }
+    } `
 
-<!-- Service: -->
+Service:
+`
 import java.security.Key;
 import java.util.Base64;
 import javax.crypto.Cipher;
@@ -77,14 +80,14 @@ public HashMap<String, String> getEncryptandSecret() throws Exception {
     System.out.println("result : " + result);
     return result;
 }
-
+`
 
 
 
 **In React native:**
 
 
-
+`
 import CryptoJS from "crypto-js";
 
 
@@ -125,4 +128,4 @@ const decryptString = async () => {
       console.log(err);
     }
   };
-
+`
