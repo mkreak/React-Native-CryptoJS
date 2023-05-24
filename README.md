@@ -3,30 +3,49 @@ To  implement react native crypto js with java server to secure api key
 
 **java:
 **
-
 Controller:
+
+
+
+
+
+
+
+
 
 
  @GetMapping("/api/getPrivateKey")
     @ResponseBody
     public ResponseEntity<?> getPrivateKey(){
-        HashMap<String, String> result = new HashMap<>();`
-       try {`
-            HashMap<String, String> rate = testService.getEncryptandSecret( );`
-            if (rate != null) {`
-//           `     result.put("message", rate);`
-         `       return new ResponseEntity<>(rate, HttpStatus.ACCEPTED);`
-          `  } else {`
-         `       result.put("message", "something Went Wrong");`
-           `     return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);`
-        `    }`
-       ` } catch (Exception e) {`
-          `  result.put("err", e.getLocalizedMessage());`
-         `   return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);`
-       ` }`
-   ` } `
+        HashMap<String, String> result = new HashMap<>();
+       try {
+            HashMap<String, String> rate = testService.getEncryptandSecret( );
+            if (rate != null) {
+//               result.put("message", rate);
+             return new ResponseEntity<>(rate, HttpStatus.ACCEPTED);
+            } else {`
+                result.put("message", "something Went Wrong");
+                return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            result.put("err", e.getLocalizedMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    } 
+
+
+
+
+
+
+
+
+
 
 Service:
+
+
+
 
 
 
@@ -82,6 +101,8 @@ public HashMap<String, String> getEncryptandSecret() throws Exception {
     System.out.println("result : " + result);
     return result;
 }
+
+
 `
 
 
@@ -89,10 +110,10 @@ public HashMap<String, String> getEncryptandSecret() throws Exception {
 **In React native:**
 
 
-`
+
+
+
 import CryptoJS from "crypto-js";
-
-
 const decryptString = async () => {
     try {
       console.log("decryptString====================");
@@ -122,8 +143,6 @@ const decryptString = async () => {
     // this is the decrypted data as a string
     var decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
     setDecryptedCipherText(decryptedText);
-
-
       console.log("Decrypted String:---", decryptedText);
       // console.log('Decrypted String2:', decryptedString2);
     } catch (err) {
