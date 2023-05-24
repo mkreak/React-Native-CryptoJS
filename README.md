@@ -1,17 +1,18 @@
 # React-Native-CryptoJS
 To  implement react native crypto js with java server to secure api key
 
-**java:
-**
+##java:
+
 Controller:
 
 
 
- @GetMapping("/api/getPrivateKey")
-    @ResponseBody
-    public ResponseEntity<?> getPrivateKey(){
-        HashMap<String, String> result = new HashMap<>();
-       try {
+ *@GetMapping("/api/getPrivateKey")
+   * @ResponseBody
+  
+*  public ResponseEntity<?> getPrivateKey(){
+    *    HashMap<String, String> result = new HashMap<>();
+    *   try {
             HashMap<String, String> rate = testService.getEncryptandSecret( );
             if (rate != null) {
 //               result.put("message", rate);
