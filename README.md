@@ -7,13 +7,6 @@ Controller:
 
 
 
-
-
-
-
-
-
-
  @GetMapping("/api/getPrivateKey")
     @ResponseBody
     public ResponseEntity<?> getPrivateKey(){
@@ -34,19 +27,7 @@ Controller:
     } 
 
 
-
-
-
-
-
-
-
-
 Service:
-
-
-
-
 
 
 import java.security.Key;
@@ -103,14 +84,7 @@ public HashMap<String, String> getEncryptandSecret() throws Exception {
 }
 
 
-`
-
-
-
 **In React native:**
-
-
-
 
 
 import CryptoJS from "crypto-js";
