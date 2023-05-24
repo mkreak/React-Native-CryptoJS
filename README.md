@@ -6,7 +6,7 @@ To  implement react native crypto js with java server to secure api key
 Controller:
 
 
-```
+```java
  @GetMapping("/api/getPrivateKey")
   @ResponseBody
   public ResponseEntity<?> getPrivateKey(){
@@ -29,7 +29,7 @@ HashMap<String, String> result = new HashMap<>();
 
 Service:
 
-```
+```java
 import java.security.Key;
 import java.util.Base64;
 import javax.crypto.Cipher;
@@ -70,15 +70,12 @@ public static String encodeKey(String str) {
 public HashMap<String, String> getEncryptandSecret() throws Exception {
     String secretKey = "itshouldbe16char";
     String encodedBase64Key = encodeKey(secretKey);
-    System.out.println("EncodedBase64Key = " + encodedBase64Key);
-    String toEncrypt = "rzp_test_KvRSBZLSjdT5ST";
+    String toEncrypt = "API_Key";
     System.out.println("Plain text = " + toEncrypt);
     String encrStr = encrypt(toEncrypt, encodedBase64Key);
-    System.out.println("Cipher Text: Encryption of str = " + encrStr);
     HashMap<String, String> result = new HashMap<>();
     result.put("data", encrStr);
     result.put("privateKey", encodedBase64Key);
-    System.out.println("privateKey : " + encodedBase64Key + " encrStr " + encrStr);
     System.out.println("result : " + result);
     return result;
 }
@@ -86,23 +83,16 @@ public HashMap<String, String> getEncryptandSecret() throws Exception {
 
 **In React native:**
 
-```
+```javascript
 import CryptoJS from "crypto-js";
 const decryptString = async () => {
     try {
       console.log("decryptString====================");
       const response = await jsonserver.get(urls.getPrivateKey);
-      console.log("response=====================");
-      console.log("response->" + JSON.stringify(response));
-      console.log("---------------------------------------------------------");
       console.log("response->" + response.data);
       const privateKey = response.data.privateKey;
       const encryptedString = response.data.data;
-      //var encryptedBase64Key = "aXRzaG91bGRiZTE2Y2hhcg==";
     var parsedBase64Key = CryptoJS.enc.Base64.parse(privateKey);
-    console.log("privateKey--------------------   "+privateKey);
-    console.log("1---", +parsedBase64Key);
-    //var encryptedCipherText = "wbsl6Tegfc7mexCHUYPS+dON3BWfgU+tD1nkiHiZ4LyrHlUXlWsfeInWMDaZO39z"; // or encryptedData;
     var decryptedData = CryptoJS.AES.decrypt(
       encryptedString,
       parsedBase64Key,
@@ -114,11 +104,9 @@ const decryptString = async () => {
     console.log("data--------------------   "+encryptedString);
     console.log("2---", +decryptedData);
     // console.log( “DecryptedData = “ + decryptedData );
-    // this is the decrypted data as a string
     var decryptedText = decryptedData.toString(CryptoJS.enc.Utf8);
     setDecryptedCipherText(decryptedText);
       console.log("Decrypted String:---", decryptedText);
-      // console.log('Decrypted String2:', decryptedString2);
     } catch (err) {
       console.log(err);
     }
